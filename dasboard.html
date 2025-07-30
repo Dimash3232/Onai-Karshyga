@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Личный кабинет - Onai</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#3B82F6',
+                        secondary: '#14B8A6',
+                        accent: '#F97316'
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+<body class="bg-gray-50">
+    <!-- Navigation -->
+    <nav class="bg-white shadow-lg fixed w-full top-0 z-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between h-16 items-center">
+                <div class="flex items-center">
+                    <a href="index.html" class="text-2xl font-bold text-primary">
+                        <i class="fas fa-briefcase mr-2"></i>Onai
+                    </a>
+                </div>
+                <div class="hidden md:flex space-x-8">
+                    <a href="jobs.html" class="text-gray-700 hover:text-primary transition duration-300">Вакансии</a>
+                    <a href="add-job.html" class="text-gray-700 hover:text-primary transition duration-300">Разместить вакансию</a>
+                    <a href="dashboard.html" class="text-primary font-semibold border-b-2 border-primary pb-1">Личный кабинет</a>
+                </div>
+                <div class="flex items-center space-x-4">
+                    <div class="flex items-center space-x-2">
+                        <img src="https://images.pexels.com/photos/1040881/pexels-photo-1040881.jpeg?auto=compress&cs=tinysrgb&w=40&h=40&fit=crop&crop=face" 
+                             alt="Profile" class="w-8 h-8 rounded-full">
+                        <span class="text-gray-700 font-medium">Работодатель</span>
+                    </div>
+                    <button onclick="logout()" class="text-gray-700 hover:text-red-500 transition duration-300">
+                        <i class="fas fa-sign-out-alt"></i>
+                    </button>
+                    <button class="md:hidden" onclick="toggleMobileMenu()">
+                        <i class="fas fa-bars text-gray-700"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+        <!-- Mobile menu -->
+        <div id="mobile-menu" class="md:hidden hidden bg-white border-t">
+            <div class="px-4 py-2 space-y-2">
+                <a href="jobs.html" class="block text-gray-700 hover:text-primary">Вакансии</a>
+                <a href="add-job.html" class="block text-gray-700 hover:text-primary">Разместить вакансию</a>
+                <a href="dashboard.html" class="block text-primary font-semibold">Личный кабинет</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Header Section -->
+    <section class="pt-20 pb-8 bg-gradient-to-r from-primary to-secondary">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center">
+                <div>
+                    <h1 class="text-3xl md:text-4xl font-bold text-white mb-2">Личный кабинет</h1>
+                    <p class="text-blue-100">Управляйте своими вакансиями</p>
+                </div>
+                <a href="add-job.html" class="bg-white text-primary px-6 py-3 rounded-lg font-semibold hover:bg-gray-100 transition duration-300 transform hover:scale-105">
+                    <i class="fas fa-plus mr-2"></i>Новая вакансия
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Stats Section -->
+    <section class="py-8 bg-white">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid md:grid-cols-4 gap-6">
+                <div class="bg-gradient-to-r from-primary to-blue-600 text-white p-6 rounded-lg">
+                    <div class="flex items-center justify-between">
+                        <div>
+                            <p class="text-blue-100">Активные вакансии</p>
+                            <p id="active-jobs-count" class="text-3xl font-bold">3</p>
+                        </div>
+                        <i class="fas fa-briefcase text-3xl text-blue-200"></i>
+                    </div>
+                </div>
+                <div class="bg-gradient-to-r from-secondary to-teal-600 text-white p-6 rounded-lg">
+                    <div class="flex items-center justify-between">
+                        <div>
+                            <p class="text-teal-100">Всего откликов</p>
+                            <p id="total-applications" class="text-3xl font-bold">24</p>
+                        </div>
+                        <i class="fas fa-users text-3xl text-teal-200"></i>
+                    </div>
+                </div>
+                <div class="bg-gradient-to-r from-accent to-orange-600 text-white p-6 rounded-lg">
+                    <div class="flex items-center justify-between">
+                        <div>
+                            <p class="text-orange-100">Просмотры</p>
+                            <p id="total-views" class="text-3xl font-bold">156</p>
+                        </div>
+                        <i class="fas fa-eye text-3xl text-orange-200"></i>
+                    </div>
+                </div>
+                <div class="bg-gradient-to-r from-purple-500 to-purple-600 text-white p-6 rounded-lg">
+                    <div class="flex items-center justify-between">
+                        <div>
+                            <p class="text-purple-100">Успешные найма</p>
+                            <p id="successful-hires" class="text-3xl font-bold">5</p>
+                        </div>
+                        <i class="fas fa-handshake text-3xl text-purple-200"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Jobs Management Section -->
+    <section class="py-12 bg-gray-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center mb-8">
+                <h2 class="text-2xl font-bold text-gray-900">Мои вакансии</h2>
+                <div class="flex space-x-4">
+                    <select id="status-filter" class="px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent">
+                        <option value="">Все статусы</option>
+                        <option value="active">Активные</option>
+                        <option value="paused">На паузе</option>
+                        <option value="closed">Закрыте</option>
+                    </select>
+                </div>
+            </div>
+
+            <div id="my-jobs-container" class="space-y-6">
+                <!-- Jobs will be populated by JavaScript -->
+            </div>
+
+            <!-- Empty state -->
+            <div id="empty-jobs" class="hidden text-center py-12">
+                <i class="fas fa-briefcase text-6xl text-gray-300 mb-4"></i>
+                <h3 class="text-xl font-semibold text-gray-600 mb-2">У вас пока нет вакансий</h3>
+                <p class="text-gray-500 mb-6">Создайте свою первую вакансию, чтобы начать поиск сотрудников</p>
+                <a href="add-job.html" class="bg-primary text-white px-6 py-3 rounded-lg font-semibold hover:bg-blue-600 transition duration-300">
+                    <i class="fas fa-plus mr-2"></i>Создать вакансию
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Edit Job Modal -->
+    <div id="edit-modal" class="hidden fixed inset-0 bg-gray-600 bg-opacity-50 overflow-y-auto h-full w-full z-50">
+        <div class="relative top-20 mx-auto p-5 border w-11/12 md:w-3/4 lg:w-1/2 shadow-lg rounded-md bg-white">
+            <div class="mt-3">
+                <div class="flex justify-between items-center mb-4">
+                    <h3 class="text-lg font-bold text-gray-900">Редактировать вакансию</h3>
+                    <button onclick="closeEditModal()" class="text-gray-400 hover:text-gray-600">
+                        <i class="fas fa-times text-xl"></i>
+                    </button>
+                </div>
+                <form id="edit-job-form" class="space-y-4">
+                    <input type="hidden" id="edit-job-id">
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-2">Название вакансии</label>
+                        <input type="text" id="edit-title" required class="w-full px-3 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-primary focus:border-transparent">
+                    </div>
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-2">Описание</label>
+                        <textarea id="edit-description" rows="4" required class="w-full px-3 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-primary focus:border-transparent"></textarea>
+                    </div>
+                    <div class="grid md:grid-cols-2 gap-4">
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-2">Город</label>
+                            <select id="edit-city" required class="w-full px-3 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-primary focus:border-transparent">
+                                <option value="">Выберите город</option>
+                                <option value="Алматы">Алматы</option>
+                                <option value="Нур-Султан">Нур-Султан</option>
+                                <option value="Шымкент">Шымкент</option>
+                                <option value="Караганда">Караганда</option>
+                                <option value="Актобе">Актобе</option>
+                            </select>
+                        </div>
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-2">Зарплата (тенге)</label>
+                            <input type="number" id="edit-salary" required class="w-full px-3 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-primary focus:border-transparent">
+                        </div>
+                    </div>
+                    <div class="flex justify-end space-x-3 pt-4">
+                        <button type="button" onclick="closeEditModal()" class="px-4 py-2 text-gray-600 border border-gray-300 rounded-md hover:bg-gray-50">
+                            Отмена
+                        </button>
+                        <button type="submit" class="px-4 py-2 bg-primary text-white rounded-md hover:bg-blue-600">
+                            Сохранить
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="bg-white py-12 border-t">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid md:grid-cols-4 gap-8">
+                <div>
+                    <h3 class="text-lg font-semibold text-gray-900 mb-4">
+                        <i class="fas fa-briefcase mr-2 text-primary"></i>Onai
+                    </h3>
+                    <p class="text-gray-600">Лучшая платформа для поиска работы в Казахстане</p>
+                </div>
+                <div>
+                    <h4 class="font-semibold text-gray-900 mb-4">Для соискателей</h4>
+                    <ul class="space-y-2 text-gray-600">
+                        <li><a href="jobs.html" class="hover:text-primary">Поиск вакансий</a></li>
+                        <li><a href="#" class="hover:text-primary">Создать резюме</a></li>
+                        <li><a href="#" class="hover:text-primary">Карьерные советы</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="font-semibold text-gray-900 mb-4">Для работодателей</h4>
+                    <ul class="space-y-2 text-gray-600">
+                        <li><a href="add-job.html" class="hover:text-primary">Разместить вакансию</a></li>
+                        <li><a href="dashboard.html" class="hover:text-primary">Личный кабинет</a></li>
+                        <li><a href="#" class="hover:text-primary">Поиск кандидатов</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="font-semibold text-gray-900 mb-4">Контакты</h4>
+                    <ul class="space-y-2 text-gray-600">
+                        <li><i class="fas fa-envelope mr-2"></i>info@onai.kz</li>
+                        <li><i class="fas fa-phone mr-2"></i>+7 (727) 123-45-67</li>
+                        <li><i class="fas fa-map-marker-alt mr-2"></i>Алматы, Казахстан</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="border-t mt-8 pt-8 text-center text-gray-600">
+                <p>&copy; 2025 Onai. Все права защищены.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>

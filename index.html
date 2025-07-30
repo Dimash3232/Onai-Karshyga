@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Onai - Поиск работы в Казахстане</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#3B82F6',
+                        secondary: '#14B8A6',
+                        accent: '#F97316'
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+<body class="bg-gray-50">
+    <!-- Navigation -->
+    <nav class="bg-white shadow-lg fixed w-full top-0 z-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between h-16 items-center">
+                <div class="flex items-center">
+                    <a href="index.html" class="text-2xl font-bold text-primary">
+                        <i class="fas fa-briefcase mr-2"></i>Onai
+                    </a>
+                </div>
+                <div class="hidden md:flex space-x-8">
+                    <a href="jobs.html" class="text-gray-700 hover:text-primary transition duration-300">Вакансии</a>
+                    <a href="add-job.html" class="text-gray-700 hover:text-primary transition duration-300">Разместить вакансию</a>
+                    <a href="dashboard.html" class="text-gray-700 hover:text-primary transition duration-300">Личный кабинет</a>
+                </div>
+                <div class="flex items-center space-x-4">
+                    <a href="auth.html" class="bg-primary text-white px-4 py-2 rounded-lg hover:bg-blue-600 transition duration-300">
+                        Войти
+                    </a>
+                    <button class="md:hidden" onclick="toggleMobileMenu()">
+                        <i class="fas fa-bars text-gray-700"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+        <!-- Mobile menu -->
+        <div id="mobile-menu" class="md:hidden hidden bg-white border-t">
+            <div class="px-4 py-2 space-y-2">
+                <a href="jobs.html" class="block text-gray-700 hover:text-primary">Вакансии</a>
+                <a href="add-job.html" class="block text-gray-700 hover:text-primary">Разместить вакансию</a>
+                <a href="dashboard.html" class="block text-gray-700 hover:text-primary">Личный кабинет</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="pt-20 pb-16 bg-gradient-to-br from-primary to-secondary">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center">
+                <h1 class="text-4xl md:text-6xl font-bold text-white mb-6 animate-fade-in">
+                    Найдите работу мечты в Казахстане
+                </h1>
+                <p class="text-xl text-blue-100 mb-8 max-w-3xl mx-auto">
+                    Onai — современная платформа для поиска работы, которая соединяет талантливых соискателей с лучшими работодателями Казахстана
+                </p>
+                <div class="flex flex-col sm:flex-row gap-4 justify-center">
+                    <a href="jobs.html" class="bg-white text-primary px-8 py-4 rounded-lg font-semibold hover:bg-gray-100 transition duration-300 transform hover:scale-105">
+                        <i class="fas fa-search mr-2"></i>Искать работу
+                    </a>
+                    <a href="add-job.html" class="bg-accent text-white px-8 py-4 rounded-lg font-semibold hover:bg-orange-600 transition duration-300 transform hover:scale-105">
+                        <i class="fas fa-plus mr-2"></i>Разместить вакансию
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Features Section -->
+    <section class="py-16 bg-white">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-12">
+                <h2 class="text-3xl font-bold text-gray-900 mb-4">Почему выбирают Onai?</h2>
+                <p class="text-gray-600 max-w-2xl mx-auto">Мы предоставляем лучшие инструменты для поиска работы и найма сотрудников</p>
+            </div>
+            <div class="grid md:grid-cols-3 gap-8">
+                <div class="text-center p-6 rounded-lg hover:shadow-lg transition duration-300">
+                    <div class="bg-primary text-white w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4">
+                        <i class="fas fa-rocket text-2xl"></i>
+                    </div>
+                    <h3 class="text-xl font-semibold text-gray-900 mb-2">Быстрый поиск</h3>
+                    <p class="text-gray-600">Интеллектуальная система поиска поможет найти подходящие вакансии за секунды</p>
+                </div>
+                <div class="text-center p-6 rounded-lg hover:shadow-lg transition duration-300">
+                    <div class="bg-secondary text-white w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4">
+                        <i class="fas fa-users text-2xl"></i>
+                    </div>
+                    <h3 class="text-xl font-semibold text-gray-900 mb-2">Проверенные работодатели</h3>
+                    <p class="text-gray-600">Все компании проходят верификацию для вашей безопасности</p>
+                </div>
+                <div class="text-center p-6 rounded-lg hover:shadow-lg transition duration-300">
+                    <div class="bg-accent text-white w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4">
+                        <i class="fas fa-chart-line text-2xl"></i>
+                    </div>
+                    <h3 class="text-xl font-semibold text-gray-900 mb-2">Карьерный рост</h3>
+                    <p class="text-gray-600">Советы по развитию карьеры и возможности для профессионального роста</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Stats Section -->
+    <section class="py-16 bg-gray-100">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid md:grid-cols-4 gap-8 text-center">
+                <div>
+                    <div class="text-4xl font-bold text-primary mb-2">1000+</div>
+                    <div class="text-gray-600">Активных вакансий</div>
+                </div>
+                <div>
+                    <div class="text-4xl font-bold text-secondary mb-2">500+</div>
+                    <div class="text-gray-600">Компаний</div>
+                </div>
+                <div>
+                    <div class="text-4xl font-bold text-accent mb-2">5000+</div>
+                    <div class="text-gray-600">Соискателей</div>
+                </div>
+                <div>
+                    <div class="text-4xl font-bold text-primary mb-2">98%</div>
+                    <div class="text-gray-600">Успешных трудоустройств</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="py-16 bg-gray-900">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+            <h2 class="text-3xl font-bold text-white mb-4">Готовы начать свой путь?</h2>
+            <p class="text-gray-300 mb-8 max-w-2xl mx-auto">
+                Присоединяйтесь к тысячам успешных профессионалов, которые нашли работу мечты через Onai
+            </p>
+            <a href="auth.html" class="bg-primary text-white px-8 py-4 rounded-lg font-semibold hover:bg-blue-600 transition duration-300 transform hover:scale-105">
+                Начать сейчас
+            </a>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-white py-12">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid md:grid-cols-4 gap-8">
+                <div>
+                    <h3 class="text-lg font-semibold text-gray-900 mb-4">
+                        <i class="fas fa-briefcase mr-2 text-primary"></i>Onai
+                    </h3>
+                    <p class="text-gray-600">Лучшая платформа для поиска работы в Казахстане</p>
+                </div>
+                <div>
+                    <h4 class="font-semibold text-gray-900 mb-4">Для соискателей</h4>
+                    <ul class="space-y-2 text-gray-600">
+                        <li><a href="jobs.html" class="hover:text-primary">Поиск вакансий</a></li>
+                        <li><a href="#" class="hover:text-primary">Создать резюме</a></li>
+                        <li><a href="#" class="hover:text-primary">Карьерные советы</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="font-semibold text-gray-900 mb-4">Для работодателей</h4>
+                    <ul class="space-y-2 text-gray-600">
+                        <li><a href="add-job.html" class="hover:text-primary">Разместить вакансию</a></li>
+                        <li><a href="dashboard.html" class="hover:text-primary">Личный кабинет</a></li>
+                        <li><a href="#" class="hover:text-primary">Поиск кандидатов</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="font-semibold text-gray-900 mb-4">Контакты</h4>
+                    <ul class="space-y-2 text-gray-600">
+                        <li><i class="fas fa-envelope mr-2"></i>info@onai.kz</li>
+                        <li><i class="fas fa-phone mr-2"></i>+7 (727) 123-45-67</li>
+                        <li><i class="fas fa-map-marker-alt mr-2"></i>Алматы, Казахстан</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="border-t mt-8 pt-8 text-center text-gray-600">
+                <p>&copy; 2025 Onai. Все права защищены.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>

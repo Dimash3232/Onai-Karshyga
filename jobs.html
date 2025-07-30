@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Вакансии - Onai</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#3B82F6',
+                        secondary: '#14B8A6',
+                        accent: '#F97316'
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+<body class="bg-gray-50">
+    <!-- Navigation -->
+    <nav class="bg-white shadow-lg fixed w-full top-0 z-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between h-16 items-center">
+                <div class="flex items-center">
+                    <a href="index.html" class="text-2xl font-bold text-primary">
+                        <i class="fas fa-briefcase mr-2"></i>Onai
+                    </a>
+                </div>
+                <div class="hidden md:flex space-x-8">
+                    <a href="jobs.html" class="text-primary font-semibold border-b-2 border-primary pb-1">Вакансии</a>
+                    <a href="add-job.html" class="text-gray-700 hover:text-primary transition duration-300">Разместить вакансию</a>
+                    <a href="dashboard.html" class="text-gray-700 hover:text-primary transition duration-300">Личный кабинет</a>
+                </div>
+                <div class="flex items-center space-x-4">
+                    <a href="auth.html" class="bg-primary text-white px-4 py-2 rounded-lg hover:bg-blue-600 transition duration-300">
+                        Войти
+                    </a>
+                    <button class="md:hidden" onclick="toggleMobileMenu()">
+                        <i class="fas fa-bars text-gray-700"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+        <!-- Mobile menu -->
+        <div id="mobile-menu" class="md:hidden hidden bg-white border-t">
+            <div class="px-4 py-2 space-y-2">
+                <a href="jobs.html" class="block text-primary font-semibold">Вакансии</a>
+                <a href="add-job.html" class="block text-gray-700 hover:text-primary">Разместить вакансию</a>
+                <a href="dashboard.html" class="block text-gray-700 hover:text-primary">Личный кабинет</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Search Section -->
+    <section class="pt-20 pb-8 bg-gradient-to-r from-primary to-secondary">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-8">
+                <h1 class="text-3xl md:text-4xl font-bold text-white mb-4">Найдите работу мечты</h1>
+                <p class="text-blue-100">Более 1000 актуальных вакансий от проверенных работодателей</p>
+            </div>
+            <div class="max-w-4xl mx-auto">
+                <div class="bg-white rounded-lg shadow-lg p-6">
+                    <div class="grid md:grid-cols-3 gap-4">
+                        <div class="relative">
+                            <i class="fas fa-search absolute left-3 top-3 text-gray-400"></i>
+                            <input type="text" id="search-input" placeholder="Поиск по названию вакансии..." 
+                                   class="w-full pl-10 pr-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent">
+                        </div>
+                        <div class="relative">
+                            <i class="fas fa-map-marker-alt absolute left-3 top-3 text-gray-400"></i>
+                            <select id="city-filter" class="w-full pl-10 pr-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent">
+                                <option value="">Все города</option>
+                                <option value="Алматы">Алматы</option>
+                                <option value="Нур-Султан">Нур-Султан</option>
+                                <option value="Шымкент">Шымкент</option>
+                                <option value="Караганда">Караганда</option>
+                                <option value="Актобе">Актобе</option>
+                            </select>
+                        </div>
+                        <div class="relative">
+                            <i class="fas fa-money-bill-wave absolute left-3 top-3 text-gray-400"></i>
+                            <select id="salary-filter" class="w-full pl-10 pr-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent">
+                                <option value="">Любая зарплата</option>
+                                <option value="100000">От 100,000 тг</option>
+                                <option value="200000">От 200,000 тг</option>
+                                <option value="300000">От 300,000 тг</option>
+                                <option value="500000">От 500,000 тг</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Jobs Section -->
+    <section class="py-12">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center mb-8">
+                <h2 class="text-2xl font-bold text-gray-900">Актуальные вакансии</h2>
+                <div class="text-gray-600">
+                    Найдено: <span id="jobs-count" class="font-semibold text-primary">12</span> вакансий
+                </div>
+            </div>
+            
+            <div id="jobs-container" class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+                <!-- Job cards will be populated by JavaScript -->
+            </div>
+
+            <!-- No results message -->
+            <div id="no-results" class="hidden text-center py-12">
+                <i class="fas fa-search text-6xl text-gray-300 mb-4"></i>
+                <h3 class="text-xl font-semibold text-gray-600 mb-2">Вакансии не найдены</h3>
+                <p class="text-gray-500">Попробуйте изменить параметры поиска</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-white py-12 border-t">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid md:grid-cols-4 gap-8">
+                <div>
+                    <h3 class="text-lg font-semibold text-gray-900 mb-4">
+                        <i class="fas fa-briefcase mr-2 text-primary"></i>Onai
+                    </h3>
+                    <p class="text-gray-600">Лучшая платформа для поиска работы в Казахстане</p>
+                </div>
+                <div>
+                    <h4 class="font-semibold text-gray-900 mb-4">Для соискателей</h4>
+                    <ul class="space-y-2 text-gray-600">
+                        <li><a href="jobs.html" class="hover:text-primary">Поиск вакансий</a></li>
+                        <li><a href="#" class="hover:text-primary">Создать резюме</a></li>
+                        <li><a href="#" class="hover:text-primary">Карьерные советы</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="font-semibold text-gray-900 mb-4">Для работодателей</h4>
+                    <ul class="space-y-2 text-gray-600">
+                        <li><a href="add-job.html" class="hover:text-primary">Разместить вакансию</a></li>
+                        <li><a href="dashboard.html" class="hover:text-primary">Личный кабинет</a></li>
+                        <li><a href="#" class="hover:text-primary">Поиск кандидатов</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="font-semibold text-gray-900 mb-4">Контакты</h4>
+                    <ul class="space-y-2 text-gray-600">
+                        <li><i class="fas fa-envelope mr-2"></i>info@onai.kz</li>
+                        <li><i class="fas fa-phone mr-2"></i>+7 (727) 123-45-67</li>
+                        <li><i class="fas fa-map-marker-alt mr-2"></i>Алматы, Казахстан</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="border-t mt-8 pt-8 text-center text-gray-600">
+                <p>&copy; 2025 Onai. Все права защищены.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>
